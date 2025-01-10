@@ -3,10 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Center Web App</title>
+  <title>Task Center</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .header {
+      font-size: 2.5rem;
+      margin: 20px 0;
+    }
+    .balance {
+      margin: 20px auto;
+      padding: 20px;
+      width: 80%;
+      border: 3px solid white;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .message {
+      margin: 20px auto;
+      padding: 20px;
+      width: 80%;
+      background-color: white;
+      color: orange;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 10px;
+    }
+    .footer {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .button {
+      padding: 10px 20px;
+      background-color: teal;
+      color: white;
+      text-align: center;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      width: 100px;
+      text-decoration: none;
+    }
+    .button:hover {
+      background-color: darkcyan;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Task Center</h1>
-  <p>This is a placeholder page for the Task Center Web App.</p>
+  <div class="header">Task Center</div>
+  <div class="balance">You have <br> 00000 &#x267B;</div>
+  <div class="message">
+    Earn more &#x267B; <br>
+    And exchange it for real cash
+  </div>
+  <div class="footer">
+    <div class="button">Freins</div>
+    <div class="button">Task</div>
+    <div class="button">Swap</div>
+  </div>
 </body>
 </html>
