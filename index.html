@@ -108,7 +108,7 @@
 
   <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
   <script>
-    // Initialisation d'Adsgram
+    // Initialisation d'Adsgram avec block ID
     const AdController = window.Adsgram.init({ blockId: "int-7034" });
 
     // Simuler le solde de l'utilisateur
@@ -125,28 +125,40 @@
       const tasksContainer = document.getElementById("tasks-container");
       tasksContainer.innerHTML = "";
 
-      if (category === "tg_bot" || category === "tg_channels") {
-        // Exemple de tâche pour rejoindre un bot ou une chaîne TG
-        const taskHtml = `
+      if (category === "tg_bot") {
+        // Tâches pour "Join TG Bots"
+        tasksContainer.innerHTML = `
           <div class="task">
-            <p><strong>Name:</strong> Sample Bot</p>
+            <p><strong>Name:</strong> [BAD COIN BAB]</p>
             <p><strong>Description:</strong> Join and claim 500 ♻️</p>
-            <button class="join-btn" onclick="joinTask(this)">Join</button>
-          </div>`;
-        tasksContainer.innerHTML = taskHtml.repeat(3); // Simuler plusieurs tâches
+            <button class="join-btn" onclick="joinTask(this, '[https://t.me/BadCoinBadBot/app?startapp=invite_h1fbqq1794]')">Join</button>
+          </div>
+          <!-- Ajoutez ici d'autres tâches similaires pour "Join TG Bots" -->
+        `;
+      } else if (category === "tg_channels") {
+        // Tâches pour "Join TG Channels & Groups"
+        tasksContainer.innerHTML = `
+          <div class="task">
+            <p><strong>Name:</strong> [TAPS aidrop]</p>
+            <p><strong>Description:</strong> Join and claim 500 ♻️</p>
+            <button class="join-btn" onclick="joinTask(this, '[https://t.me/hamsterkombo_lvlup]')">Join</button>
+          </div>
+          <!-- Ajoutez ici d'autres tâches similaires pour "Join TG Channels" -->
+        `;
       } else if (category === "watch_ads") {
-        // Tâche de visualisation d'annonces
-        const adTaskHtml = `
+        // Tâches pour "Watch Ads"
+        tasksContainer.innerHTML = `
           <div class="task">
             <p>Watch Ads and earn 50 ♻️</p>
             <button class="watch-ads-btn" onclick="watchAd()">Watch</button>
-          </div>`;
-        tasksContainer.innerHTML = adTaskHtml.repeat(3); // Simuler plusieurs tâches
+          </div>
+        `;
       }
     }
 
     // Gestion des tâches "Join"
-    function joinTask(button) {
+    function joinTask(button, link) {
+      window.open(link, "_blank"); // Redirige l'utilisateur vers le lien
       button.disabled = true;
       button.innerText = "Claim";
       setTimeout(() => {
