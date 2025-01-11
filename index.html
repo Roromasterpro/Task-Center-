@@ -4,71 +4,148 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task Center</title>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      padding: 20px;
+    }
+    header h1 {
+      font-size: 2.5em;
+    }
+    header p {
+      font-size: 1.2em;
+    }
+    #balance {
+      font-weight: bold;
+    }
+    .content {
+      padding: 20px;
+    }
+    .category-btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 20px;
+      font-size: 1.2em;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .category-btn:hover {
+      background-color: #0056b3;
+    }
+    .task {
+      background-color: #1a1a1a;
+      margin: 15px auto;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      text-align: left;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6);
+    }
+    .task p {
+      margin: 5px 0;
+    }
+    .task button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #28a745;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .task button:hover {
+      background-color: #218838;
+    }
+    footer {
+      margin-top: 20px;
+    }
+    footer nav button {
+      margin: 10px;
+      padding: 15px 20px;
+      font-size: 1.2em;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    footer nav button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <div id="app">
-    <header>
-      <h1>Task Center</h1>
-      <p>Your balance: <span id="balance">0</span> ♻️</p>
-    </header>
-
+  <header>
+    <h1>Task Center</h1>
+    <p>You have <span id="balance">0</span> ♻️</p>
+  </header>
+  <div class="content">
+    <button class="category-btn" onclick="loadTasks('tg_bot')">Join TG Bots</button>
+    <button class="category-btn" onclick="loadTasks('tg_channels')">Join TG Channels</button>
+    <button class="category-btn" onclick="loadTasks('watch_ads')">Watch Ads</button>
+    <div id="tasks-container"></div>
+  </div>
+  <footer>
     <nav>
-      <button id="tasks-btn">Tasks</button>
       <button id="freins-btn" disabled>Freins</button>
       <button id="swap-btn" disabled>Swap</button>
     </nav>
+  </footer>
 
-    <section id="tasks-section">
-      <h2>Tasks</h2>
-      <div id="categories">
-        <button class="category-btn" onclick="loadTasks('tg_bot')">Join TG Bots</button>
-        <button class="category-btn" onclick="loadTasks('tg_channels')">Join TG Channels</button>
-        <button class="category-btn" onclick="loadTasks('watch_ads')">Watch Ads</button>
-      </div>
-    </section>
-  </div>
-
-  <!-- Scripts -->
   <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
   <script>
-    // Initialiser Adsgram
+    // Initialisation d'Adsgram
     const AdController = window.Adsgram.init({ blockId: "int-7034" });
 
     // Simuler le solde de l'utilisateur
     let userBalance = 0;
 
-    // Mettre à jour le solde affiché
+    // Met à jour le solde affiché
     function updateBalance(amount) {
       userBalance += amount;
       document.getElementById("balance").innerText = userBalance;
     }
 
-    // Charger les tâches selon la catégorie
+    // Charge les tâches selon la catégorie
     function loadTasks(category) {
-      const taskSection = document.getElementById("tasks-section");
-      let tasksHtml = `<h2>${category === "tg_bot" ? "Join TG Bots" : category === "tg_channels" ? "Join TG Channels" : "Watch Ads"}</h2>`;
+      const tasksContainer = document.getElementById("tasks-container");
+      tasksContainer.innerHTML = "";
 
       if (category === "tg_bot" || category === "tg_channels") {
-        // Exemple de tâche TG
-        tasksHtml += `
+        // Exemple de tâche pour rejoindre un bot ou une chaîne TG
+        const taskHtml = `
           <div class="task">
-            <p>Name: Sample Bot</p>
-            <p>Description: Join and claim 500 ♻️</p>
+            <p><strong>Name:</strong> Sample Bot</p>
+            <p><strong>Description:</strong> Join and claim 500 ♻️</p>
             <button class="join-btn" onclick="joinTask(this)">Join</button>
           </div>`;
+        tasksContainer.innerHTML = taskHtml.repeat(3); // Simuler plusieurs tâches
       } else if (category === "watch_ads") {
-        tasksHtml += `
+        // Tâche de visualisation d'annonces
+        const adTaskHtml = `
           <div class="task">
             <p>Watch Ads and earn 50 ♻️</p>
             <button class="watch-ads-btn" onclick="watchAd()">Watch</button>
           </div>`;
+        tasksContainer.innerHTML = adTaskHtml.repeat(3); // Simuler plusieurs tâches
       }
-
-      taskSection.innerHTML = tasksHtml;
     }
 
-    // Gérer les tâches de type "Join"
+    // Gestion des tâches "Join"
     function joinTask(button) {
       button.disabled = true;
       button.innerText = "Claim";
@@ -78,10 +155,10 @@
           updateBalance(500);
           button.disabled = true;
         };
-      }, 10000);
+      }, 10000); // 10 secondes pour l'apparition de "Claim"
     }
 
-    // Gérer les publicités
+    // Gestion des publicités
     function watchAd() {
       AdController.showAd()
         .then(() => {
