@@ -69,6 +69,10 @@
     .task button:hover {
       background-color: #218838;
     }
+    .task button.disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
     footer {
       margin-top: 20px;
     }
@@ -108,77 +112,70 @@
 
   <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
   <script>
-    // Initialisation d'Adsgram avec block ID
-    const AdController = window.Adsgram.init({ blockId: "7034" });
+    const AdController = window.Adsgram.init({ blockId: "int-7034" });
 
-    // Simuler le solde de l'utilisateur
     let userBalance = 0;
 
-    // Met à jour le solde affiché
     function updateBalance(amount) {
       userBalance += amount;
       document.getElementById("balance").innerText = userBalance;
     }
 
-    // Charge les tâches selon la catégorie
     function loadTasks(category) {
       const tasksContainer = document.getElementById("tasks-container");
       tasksContainer.innerHTML = "";
 
       if (category === "tg_bot") {
-        // Tâches pour "Join TG Bots"
         tasksContainer.innerHTML = `
           <div class="task">
             <p><strong>Name:</strong> CEX.IO Bot</p>
             <p><strong>Description:</strong> Join and claim 500 ♻️</p>
-            <button class="join-btn" onclick="joinTask(this, 'https://t.me/cexio_tap_bot?start=1716279957927888')">Join</button>
+            <button onclick="joinTask(this, 'https://t.me/cexio_tap_bot?start=1716279957927888', 500)">Join</button>
           </div>
           <div class="task">
             <p><strong>Name:</strong> BadCoin Bot</p>
             <p><strong>Description:</strong> Join and claim 500 ♻️</p>
-            <button class="join-btn" onclick="joinTask(this, 'https://t.me/BadCoinBadBot/app?startapp=invite_h1fbqq1794')">Join</button>
+            <button onclick="joinTask(this, 'https://t.me/BadCoinBadBot/app?startapp=invite_h1fbqq1794', 500)">Join</button>
           </div>
         `;
       } else if (category === "tg_channels") {
-        // Tâches pour "Join TG Channels & Groups"
         tasksContainer.innerHTML = `
           <div class="task">
             <p><strong>Name:</strong> Eighty Si Channel</p>
             <p><strong>Description:</strong> Join and claim 500 ♻️</p>
-            <button class="join-btn" onclick="joinTask(this, 'https://t.me/eightysi')">Join</button>
+            <button onclick="joinTask(this, 'https://t.me/eightysi', 500)">Join</button>
           </div>
           <div class="task">
             <p><strong>Name:</strong> Hamster Kombo</p>
             <p><strong>Description:</strong> Join and claim 500 ♻️</p>
-            <button class="join-btn" onclick="joinTask(this, 'https://t.me/hamsterkombo_lvlup')">Join</button>
+            <button onclick="joinTask(this, 'https://t.me/hamsterkombo_lvlup', 500)">Join</button>
           </div>
         `;
       } else if (category === "watch_ads") {
-        // Tâches pour "Watch Ads"
         tasksContainer.innerHTML = `
           <div class="task">
             <p>Watch Ads and earn 50 ♻️</p>
-            <button class="watch-ads-btn" onclick="watchAd()">Watch</button>
+            <button onclick="watchAd()">Watch</button>
           </div>
         `;
       }
     }
 
-    // Gestion des tâches "Join"
-    function joinTask(button, link) {
-      window.open(link, "_blank"); // Redirige l'utilisateur vers le lien
+    function joinTask(button, link, reward) {
+      window.open(link, "_blank");
       button.disabled = true;
       button.innerText = "Claim";
       setTimeout(() => {
-        button.innerText = "Claim 500 ♻️";
+        button.innerText = `Claim ${reward} ♻️`;
+        button.disabled = false;
         button.onclick = () => {
-          updateBalance(500);
+          updateBalance(reward);
           button.disabled = true;
+          button.classList.add("disabled");
         };
-      }, 10000); // 10 secondes pour l'apparition de "Claim"
+      }, 10000);
     }
 
-    // Gestion des publicités
     function watchAd() {
       AdController.showAd()
         .then(() => {
