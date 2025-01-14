@@ -37,9 +37,16 @@
 <body>
   <h1>Welcome to Task Center</h1>
   <p class="balance">Your Balance: <span id="balance">0</span> ♻️</p>
-  <a href="https://roromasterpro.github.io/Rewards-/" class="button">Watch Ads</a>
+  <a href="watch-ads.html" class="button">Watch Ads</a>
 
   <script>
+    // Initialize Telegram Web App
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // Expand the app to full size
+
+    // Fetch user ID from Telegram Web App
+    const userId = tg.initDataUnsafe?.user?.id || null;
+
     // Initialize balance in localStorage if not set
     if (!localStorage.getItem('balance')) {
       localStorage.setItem('balance', '0');
@@ -49,6 +56,11 @@
     const balanceElement = document.getElementById('balance');
     const currentBalance = localStorage.getItem('balance');
     balanceElement.textContent = currentBalance;
+
+    // Save user ID to localStorage if available
+    if (userId) {
+      localStorage.setItem('telegram_user_id', userId);
+    }
   </script>
 </body>
 </html>
