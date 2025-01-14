@@ -3,132 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Watch Ads - Tasks Center</title>
+  <title>Task Center</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f9;
-      color: #333;
       margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .container {
-      text-align: center;
-      background: #fff;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      width: 90%;
-    }
-    h1 {
-      color: #4caf50;
-      font-size: 1.5em;
-      margin-bottom: 20px;
-    }
-    #ad-container {
-      width: 100%;
-      height: 200px;
-      margin: 20px 0;
-      border: 1px dashed #ccc;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      background: #f9f9f9;
-    }
-    #reward-message {
-      margin-top: 15px;
-      font-size: 1.2em;
+      background-color: #f4f4f9;
       color: #333;
+      text-align: center;
+    }
+    .balance {
+      font-size: 1.5em;
+      color: #4caf50;
+      margin: 20px 0;
     }
     .button {
-      background: #4caf50;
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4caf50;
       color: #fff;
       border: none;
-      padding: 10px 15px;
       border-radius: 5px;
+      text-decoration: none;
       cursor: pointer;
-      font-size: 1em;
+      margin-top: 20px;
     }
-    .button:disabled {
-      background: #aaa;
-      cursor: not-allowed;
-    }
-    .hidden {
-      display: none;
+    .button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Watch Ads & Earn Rewards</h1>
-    <button id="watch-button" class="button">Watch</button>
-    <div id="ad-container">
-      <p>Loading ads...</p>
-    </div>
-    <button id="reward-button" class="button hidden" disabled>Claim Reward</button>
-    <p id="reward-message"></p>
-  </div>
+  <h1>Welcome to Task Center</h1>
+  <p class="balance">Your Balance: <span id="balance">0</span> ♻️</p>
+  <a href="watch-ads.html" class="button">Watch Ads</a>
 
-  <!-- Adsgram SDK -->
-  <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
   <script>
-    // Initialize Adsgram with block ID
-    const AdController = window.Adsgram.init({ blockId: "int-7034" });
+    // Initialize balance in localStorage if not set
+    if (!localStorage.getItem('balance')) {
+      localStorage.setItem('balance', '0');
+    }
 
-    const watchButton = document.getElementById("watch-button");
-    const rewardButton = document.getElementById("reward-button");
-    const rewardMessage = document.getElementById("reward-message");
-    const adContainer = document.getElementById("ad-container");
-
-    // Watch button logic
-    watchButton.addEventListener("click", () => {
-      watchButton.disabled = true;
-      adContainer.style.display = "flex";
-
-      // Display Ads
-      AdController.loadAd({
-        container: adContainer,
-        onComplete: () => {
-          rewardMessage.textContent = "Ad completed! You can claim your reward.";
-          rewardButton.classList.remove("hidden");
-          rewardButton.disabled = false;
-          watchButton.disabled = false;
-        },
-        onError: (err) => {
-          rewardMessage.textContent = "Failed to load the ad. Please try again.";
-          rewardButton.classList.add("hidden");
-          rewardButton.disabled = true;
-          watchButton.disabled = false;
-        },
-      });
-    });
-
-    // Reward button logic
-    rewardButton.addEventListener("click", async () => {
-      rewardButton.disabled = true;
-      rewardMessage.textContent = "You've earned 50 tokens!";
-      rewardButton.classList.add("hidden");
-      adContainer.style.display = "none";
-
-      // Optional: Call backend to update the user's balance
-      try {
-        const response = await fetch("https://your-backend-url/api/update-balance", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: "exampleUserId", amount: 50 }),
-        });
-        const result = await response.json();
-        console.log(result);
-      } catch (error) {
-        console.error("Failed to update balance:", error);
-        rewardMessage.textContent = "Failed to claim reward. Please try again.";
-      }
-    });
+    // Display the user's balance
+    const balanceElement = document.getElementById('balance');
+    const currentBalance = localStorage.getItem('balance');
+    balanceElement.textContent = currentBalance;
   </script>
 </body>
 </html>
