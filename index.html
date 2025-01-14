@@ -3,189 +3,103 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Center</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <title>Watch Ads - Tasks Center</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      color: #333;
       margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: #000;
-      color: #fff;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
       text-align: center;
-    }
-    header {
+      background: #fff;
       padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 90%;
     }
-    header h1 {
-      font-size: 2.5em;
+    h1 {
+      color: #4caf50;
+      font-size: 1.5em;
+      margin-bottom: 20px;
     }
-    header p {
+    #ad-container {
+      width: 100%;
+      height: 200px;
+      margin: 20px 0;
+      border: 1px dashed #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f9f9f9;
+    }
+    #reward-message {
+      margin-top: 15px;
       font-size: 1.2em;
+      color: #333;
     }
-    #balance {
-      font-weight: bold;
-    }
-    .content {
-      padding: 20px;
-    }
-    .category-btn {
-      display: inline-block;
-      margin: 10px;
-      padding: 15px 20px;
-      font-size: 1.2em;
+    .button {
+      background: #4caf50;
       color: #fff;
-      background-color: #007bff;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .category-btn:hover {
-      background-color: #0056b3;
-    }
-    .task {
-      background-color: #1a1a1a;
-      margin: 15px auto;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 500px;
-      text-align: left;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6);
-    }
-    .task p {
-      margin: 5px 0;
-    }
-    .task button {
-      margin-top: 10px;
       padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
       font-size: 1em;
-      color: #fff;
-      background-color: #28a745;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
     }
-    .task button:hover {
-      background-color: #218838;
-    }
-    .task button.disabled {
-      background-color: gray;
+    .button:disabled {
+      background: #aaa;
       cursor: not-allowed;
-    }
-    footer {
-      margin-top: 20px;
-    }
-    footer nav button {
-      margin: 10px;
-      padding: 15px 20px;
-      font-size: 1.2em;
-      color: #fff;
-      background-color: #007bff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    footer nav button:hover {
-      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Task Center</h1>
-    <p>You have <span id="balance">0</span> ♻️</p>
-  </header>
-  <div class="content">
-    <button class="category-btn" onclick="loadTasks('tg_bot')">Join TG Bots</button>
-    <button class="category-btn" onclick="loadTasks('tg_channels')">Join TG Channels</button>
-    <button class="category-btn" onclick="loadTasks('watch_ads')">Watch Ads</button>
-    <div id="tasks-container"></div>
+  <div class="container">
+    <h1>Watch Ads & Earn Rewards</h1>
+    <div id="ad-container">
+      <p>Loading ads...</p>
+    </div>
+    <button id="reward-button" class="button" disabled>Claim Reward</button>
+    <p id="reward-message"></p>
   </div>
-  <footer>
-    <nav>
-      <button id="freins-btn" disabled>Freins</button>
-      <button id="swap-btn" disabled>Swap</button>
-    </nav>
-  </footer>
 
+  <!-- Adsgram SDK -->
   <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
   <script>
+    // Initialize Adsgram with block ID
     const AdController = window.Adsgram.init({ blockId: "int-7034" });
 
-    let userBalance = 0;
+    const rewardButton = document.getElementById("reward-button");
+    const rewardMessage = document.getElementById("reward-message");
+    const adContainer = document.getElementById("ad-container");
 
-    function updateBalance(amount) {
-      userBalance += amount;
-      document.getElementById("balance").innerText = userBalance;
-    }
+    // Display Ads
+    AdController.loadAd({
+      container: adContainer,
+      onComplete: () => {
+        rewardMessage.textContent = "Ad completed! You can claim your reward.";
+        rewardButton.disabled = false;
+      },
+      onError: (err) => {
+        rewardMessage.textContent = "Failed to load the ad. Please try again later.";
+        rewardButton.disabled = true;
+      },
+    });
 
-    function loadTasks(category) {
-      const tasksContainer = document.getElementById("tasks-container");
-      tasksContainer.innerHTML = "";
-
-      if (category === "tg_bot") {
-        tasksContainer.innerHTML = `
-          <div class="task">
-            <p><strong>Name:</strong> CEX.IO Bot</p>
-            <p><strong>Description:</strong> Join and claim 500 ♻️</p>
-            <button onclick="joinTask(this, 'https://t.me/cexio_tap_bot?start=1716279957927888', 500)">Join</button>
-          </div>
-          <div class="task">
-            <p><strong>Name:</strong> BadCoin Bot</p>
-            <p><strong>Description:</strong> Join and claim 500 ♻️</p>
-            <button onclick="joinTask(this, 'https://t.me/BadCoinBadBot/app?startapp=invite_h1fbqq1794', 500)">Join</button>
-          </div>
-        `;
-      } else if (category === "tg_channels") {
-        tasksContainer.innerHTML = `
-          <div class="task">
-            <p><strong>Name:</strong> Eighty Si Channel</p>
-            <p><strong>Description:</strong> Join and claim 500 ♻️</p>
-            <button onclick="joinTask(this, 'https://t.me/eightysi', 500)">Join</button>
-          </div>
-          <div class="task">
-            <p><strong>Name:</strong> Hamster Kombo</p>
-            <p><strong>Description:</strong> Join and claim 500 ♻️</p>
-            <button onclick="joinTask(this, 'https://t.me/hamsterkombo_lvlup', 500)">Join</button>
-          </div>
-        `;
-      } else if (category === "watch_ads") {
-        tasksContainer.innerHTML = `
-          <div class="task">
-            <p>Watch Ads and earn 50 ♻️</p>
-            <button onclick="watchAd()">Watch</button>
-          </div>
-        `;
-      }
-    }
-
-    function joinTask(button, link, reward) {
-      window.open(link, "_blank");
-      button.disabled = true;
-      button.innerText = "Claim";
-      setTimeout(() => {
-        button.innerText = `Claim ${reward} ♻️`;
-        button.disabled = false;
-        button.onclick = () => {
-          updateBalance(reward);
-          button.disabled = true;
-          button.classList.add("disabled");
-        };
-      }, 10000);
-    }
-
-    function watchAd() {
-      AdController.showAd()
-        .then(() => {
-          updateBalance(50);
-          alert("Ad watched! You've earned 50 ♻️");
-        })
-        .catch((err) => {
-          console.error("Error watching ad:", err);
-        });
-    }
+    // Reward logic
+    rewardButton.addEventListener("click", () => {
+      rewardButton.disabled = true;
+      rewardMessage.textContent = "You've earned 50 tokens!";
+      // Call your backend to update the user's balance here
+      console.log("Reward claimed: +50 tokens");
+    });
   </script>
 </body>
 </html>
