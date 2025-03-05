@@ -1,66 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Center</title>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>task center</title>
+  <!--<link rel="stylesheet" href="style.css">-->
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f4f4f9;
-      color: #333;
-      text-align: center;
-    }
-    .balance {
-      font-size: 1.5em;
-      color: #4caf50;
-      margin: 20px 0;
-    }
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .button:hover {
-      background-color: #45a049;
-    }
+  /* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Titre */
+h1 {
+    font-size: 2em;
+    color: #ffcc00;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Conteneur principal */
+.container {
+    margin-top: 20px;
+}
+
+/* Boutons */
+button {
+    background: #ffcc00;
+    color: #000;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff9900;
+}
+
+/* Paragraphe */
+p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 80%;
+    margin: 10px auto;
+}
   </style>
+  
 </head>
 <body>
-  <h1>Welcome to Task Center</h1>
-  <p class="balance">Your Balance: <span id="balance">0</span> ♻️</p>
-  <a href="watch-ads.html" class="button">Watch Ads</a>
-
-  <script>
-    // Initialize Telegram Web App
-    const tg = window.Telegram.WebApp;
-    tg.expand(); // Expand the app to full size
-
-    // Fetch user ID from Telegram Web App
-    const userId = tg.initDataUnsafe?.user?.id || null;
-
-    // Initialize balance in localStorage if not set
-    if (!localStorage.getItem('balance')) {
-      localStorage.setItem('balance', '0');
-    }
-
-    // Display the user's balance
-    const balanceElement = document.getElementById('balance');
-    const currentBalance = localStorage.getItem('balance');
-    balanceElement.textContent = currentBalance;
-
-    // Save user ID to localStorage if available
-    if (userId) {
-      localStorage.setItem('telegram_user_id', userId);
-    }
-  </script>
+  <!-- script pour l'annonce 1-->
+  <script></script>
+  
+  <h1>TASK CENTER </h1>
+  <!-- script pour le capctcha locker-->
+  <div id="cpa-locker-cc6171a2-fa04-11ef-a5fd-8a5fb7be40ea"></div><script type="text/javascript" id="cpljs-cc6171a2-fa04-11ef-a5fd-8a5fb7be40ea" src="https://bestlocker.eu/iframeLoader/cc6171a2-fa04-11ef-a5fd-8a5fb7be40ea"></script>
+  
+  <!-- script pour l'annonce 2 et 3-->
+  <script></script>
+  
+  <div class="container">
+      <a href="mobile_reward.html"><button>mobile reward</button></a>
+  </div>
+  <!-- script pour l'annonce 4 et 5-->
+  <script></script>
+  
+  <p>bienvenue sur TASK CENTER .<br></p>
+<p>Le but ici est de compléter une offre afin d' accéder  au code de vérification.<br> </p>
+<p> <strong>Option 1 :</strong> cliquer sur le bouton je ne suis pas un robot ci dessus choisissez une offre dans la liste qui s'affiche puis compléter là. une fois terminé vous serez automatiquement redirigé vers la page ou vous recevrez votre code de vérification. 
+<br> </p>
+<p> <strong>Option 2 : </strong> cliquer sur le bouton mobiles reward affin d'accéder à la pages d'offres choisissez une offre de votre choix puis compléter là vous gagnerez des points que vous pourrez échanger contre le code de vérification dans la section</p>
+  <!-- script pour l'annonce 6-->
+  <script></script>
 </body>
 </html>
