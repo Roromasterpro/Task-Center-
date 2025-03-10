@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #1e1e1e;
+            color: white;
+        }
+        .container {
+            background: #2c2c2c;
+            padding: 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .code {
+            font-size: 18px;
+            font-weight: bold;
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        h1 {
+            font-size: 2em;
+            color: #ffcc00;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TASK CENTER </h1>
+
+    <div class="container">
+        <p>Welcome to the last page Your verification code is:</p>
+        <div class="code" id="verificationCode">Akon@#68$</div>
+        <br>
+        <button onclick="copyCode()">Copie code</button>
+    </div>
+
+    <script>
+        function copyCode() {
+            const codeText = document.getElementById("verificationCode").innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert("Code copié !");
+            });
+        }
+    </script>
+
+</body>
+</html>
