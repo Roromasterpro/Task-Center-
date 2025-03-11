@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intégration AdsGram</title>
+    
+    <!-- Inclusion du SDK AdsGram (si nécessaire, remplacez par l'URL du SDK fourni par AdsGram) -->
+    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    
+    <script>
+       document.addEventListener("DOMContentLoaded", function() {
+    if (window.Adsgram) {
+        const AdController = window.Adsgram.init({
+            blockId: "int-7034",
+            debug: true,
+            debugBannerType: "FullscreenMedia"
+        });
+
+        let clickCount = 0;
+        const alertMessage = document.getElementById("alertMessage");
+
+        function showAd() {
+            clickCount++;
+
+            AdController.show().then(() => {
+                console.log("L'utilisateur a vu la publicité.");
+            }).catch((error) => {
+                console.error("Erreur lors de l'affichage de la publicité :", error);
+            });
+
+            if (clickCount === 10) {
+                alertMessage.style.display = "block"; // Affiche l’alerte
+                setTimeout(() => {
+                    alertMessage.style.display = "none"; // Cache après 5 secondes
+                }, 5000);
+            }
+        }
+
+        document.getElementById("showAdButton").addEventListener("click", showAd);
+    } else {
+        console.error("Le SDK AdsGram n'a pas pu être chargé.");
+    }
+});
+    </script>
+  <style>
+    /* Styles généraux */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #1e1e1e;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: #ffcc00;
+        margin-top: 50px;
+    }
+
+    p {
+        color: #deffda;
+        font-size: 18px;
+    }
+
+    /* Style du bouton */
+    #showAdButton {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out, transform 0.2s;
+        margin-top: 20px;
+    }
+
+    /* Effet au survol */
+    #showAdButton:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    /* Animation du bouton lorsqu'il est cliqué */
+    #showAdButton:active {
+        transform: scale(0.95);
+    }
+
+    /* Style de l'alerte */
+    .alert {
+        background-color: #28a745;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 18px;
+        display: none;
+        margin: 20px auto;
+        width: 50%;
+    }
+</style>
+
+</head>
+<body>
+    <h1>TASK CENTER</h1>
+    <p>Click on the button bellow to wacth ads :</p>
+    <button id="showAdButton">watch ads</button>
+  <div id="alertMessage" class="alert">
+    🎉 congratulations ! your verification code is : $bonus34 
+</div>
+</body>
+</html>
